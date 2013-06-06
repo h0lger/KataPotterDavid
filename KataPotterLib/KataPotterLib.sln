@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataPotterLib", "KataPotterLib\KataPotterLib.csproj", "{3C91A6B8-8A07-4902-8537-40FDB7B5FACF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{A78D6FB0-8E63-4518-9B8B-267C66467E3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{3C91A6B8-8A07-4902-8537-40FDB7B5FACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C91A6B8-8A07-4902-8537-40FDB7B5FACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C91A6B8-8A07-4902-8537-40FDB7B5FACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78D6FB0-8E63-4518-9B8B-267C66467E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78D6FB0-8E63-4518-9B8B-267C66467E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78D6FB0-8E63-4518-9B8B-267C66467E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78D6FB0-8E63-4518-9B8B-267C66467E3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

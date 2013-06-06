@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KataPotterLib
+namespace KataPotterLib.Model
 {
     /// <summary>
     /// Base class
     /// </summary>
-    public class Media
+    public class Media: IMedia
     {
+        #region Properties
         public double Price { get; set; }
         public string Title { get; set; }
+        #endregion
     }
 }
