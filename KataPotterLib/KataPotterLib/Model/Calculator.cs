@@ -9,9 +9,11 @@ namespace KataPotterLib.Model
     public class Calculator
     {
         #region Methods
-        public static double CalcTotalPrice()
+        public static double CalcTotalPrice(ShoppingCart sCart)
         {
             double totPrice = 0;
+
+            sCart.Items.ToList().ForEach(x => totPrice += x.Price);
 
             return totPrice;
         }

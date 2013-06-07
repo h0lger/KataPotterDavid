@@ -22,7 +22,23 @@ namespace UnitTest
                     "Harry");
                 SCart.Items.Add(tmpBook);
             }
-            Assert.AreEqual<int>(101, SCart.Items.Count);
+            Assert.AreEqual<int>(100, SCart.Items.Count);
+        }
+        [TestMethod]
+        public void CalcTotPrice()
+        {
+            ShoppingCart SCart = new ShoppingCart();
+
+            //Book 1
+            SCart.Items.Add(
+                new Book(8, "Deathly Hallows", Guid.NewGuid().ToString(), "Rowling"));
+            //Book 2
+            SCart.Items.Add(
+                new Book(8, "Half-blood Prince", Guid.NewGuid().ToString(), "Rowling"));
+
+            double totPrice = Calculator.CalcTotalPrice(SCart);
+
+            Assert.AreEqual<double>(16, totPrice);
         }
     }
 }
