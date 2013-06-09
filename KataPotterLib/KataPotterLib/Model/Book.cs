@@ -16,12 +16,13 @@ namespace KataPotterLib.Model
         /// <param name="title"></param>
         /// <param name="isbn"></param>
         /// <param name="author"></param>
-        public Book(double price, string title, string isbn, string author)
+        public Book(double price, string title, string isbn, string author, SeriesEnum series)
         {
             this.Price = price;
             this.Title = title;
             this.Isbn = isbn;
             this.Author = author;
+            this.Series = series;
         }
         #endregion
         
@@ -34,12 +35,7 @@ namespace KataPotterLib.Model
         #region Enums
         public enum SeriesEnum
         {
-            NA = 0,
-            First = 1,
-            Second = 2, 
-            Third = 3, 
-            Fourth = 4,
-            Fifth = 5
+            HarryPotter = 0
         }
         #endregion
 
