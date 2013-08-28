@@ -41,7 +41,7 @@ namespace KataPotterLib.Utils
         public static Media GetFifthBook()
         {
             return new Book(
-                8, FOURTH_BOOK, "55", AUTHOR, Book.SeriesEnum.HarryPotter);
+                8, FIFTH_BOOK, "55", AUTHOR, Book.SeriesEnum.HarryPotter);
         }
 
     }

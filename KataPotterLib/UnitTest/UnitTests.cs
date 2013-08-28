@@ -68,7 +68,7 @@ namespace UnitTest
             SCart.AddToShoppingCart(Utils.GetThirdBook(), 1);
             SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
             SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);
-            Assert.AreEqual<double>(30, Calculator.CalcTotalPrice(SCart));
+            Assert.AreEqual<double>(40, Calculator.CalcTotalPrice(SCart));
             SCart.Items.Clear();
 
             //5 different books with 2 copies
@@ -77,6 +77,7 @@ namespace UnitTest
             SCart.AddToShoppingCart(Utils.GetThirdBook(), 2);
             SCart.AddToShoppingCart(Utils.GetFourthBook(), 2);
             SCart.AddToShoppingCart(Utils.GetFifthBook(), 2);
+            SCart.AddToShoppingCart(Utils.GetFourthBook(), 2);
             Assert.AreEqual<double>(60, Calculator.CalcTotalPrice(SCart));           
             SCart.Items.Clear();
         }

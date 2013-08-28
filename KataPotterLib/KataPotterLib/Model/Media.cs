@@ -15,5 +15,21 @@ namespace KataPotterLib.Model
         public double Price { get; set; }
         public string Title { get; set; }
         #endregion
+
+        #region Methods        
+        public override bool Equals(object obj)
+        {
+            var item = (Media)obj;
+            if (item == null)
+                return false;
+
+            return this.Title.Equals(item.Title);
+        }
+        public override int GetHashCode()
+        {
+            return this.Title.GetHashCode();
+        }
+
+        #endregion
     }
 }

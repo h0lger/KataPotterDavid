@@ -29,47 +29,62 @@ namespace KataPotterLib.Model
             double discount = 0;
 
             //Calc Harry Potter series discount
-            var harryPotter = sCart.Items.Where(x => ((Book)x).Series == Book.SeriesEnum.HarryPotter);
-            var differetBooks = harryPotter.Distinct().Select(x => x.Title);            
-            
-            var permutations = GetCombinations<Media>(harryPotter.ToList(), differetBooks.Count());
+            List<string> harryPotter = sCart.Items.Where(x =>
+                ((Book)x).Series == Book.SeriesEnum.HarryPotter).Select(x => x.Title).ToList();
 
-            List<IEnumerable<Media>> set = permutations.ToList();
-            
-            
+            var allCombos = CalcCombinations(harryPotter).ToList();
 
             
-            //if (differetBooks == 5) discount = (totPrice * 0.25);
-            //else if (differetTitles == 4) discount = (totPrice * 0.20);
-            //else if (differetTitles == 3) discount = (totPrice * 0.10);
-            //else if (differetTitles == 2) discount = (totPrice * 0.05);
-
             
-            return discount;
-        }
-
-        private double CalcSetDiscount(IList<IEnumerable<Media>> set)
-        {
-            double discount = 0;
-            //set.ToList().ForEach(x => x.First())
 
             return discount;
         }
 
-        /// <summary>
-        /// Returns permutations
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        private static IEnumerable<IEnumerable<T>> GetCombinations<T>(IEnumerable<T> list, int length)
+        private double CalcSetDiscount(int nDifferentTitles, int nBooks, double price)
         {
-            if (length == 1) return list.Select(t => new T[] { t });
+            switch (nDifferentTitles)
+            {
+                case 5:
+                    return nBooks * price * 0.75;
+                case 4:
+                    return nBooks * price * 0.80;
+                case 3:
+                    return nBooks * price * 0.90;
+                case 2:
+                    return nBooks * price * 0.95;
+                case 1:
+                    return nBooks * price * 1;
 
-            return GetCombinations(list, length - 1)
-                .SelectMany(t => list, (t1, t2) => t1.Concat(new T[] { t2 }));
+                default:
+                    throw new InvalidOperationException();
+            }
         }
-        #endregion
+
+
+        private static IEnumerable<int> ConstructSetFromBits(int i)
+        {
+            for (int n = 0; i != 0; i /= 2, n++)
+            {
+                if ((i & 1) != 0)
+                    yield return n;
+            }
+        }
+
+
+        private static IEnumerable<List<string>> ProduceEnumeration(List<string> allValues)
+        {
+            for (int i = 0; i < (1 << allValues.Count); i++)
+            {
+                yield return
+                    ConstructSetFromBits(i).Select(n => allValues[n]).ToList();
+            }
+        }
+
+        public static List<List<string>> CalcCombinations(List<string> allValues)
+        {
+            return ProduceEnumeration(allValues).ToList();
+        }
     }
 }
+      
+#endregion
