@@ -31,10 +31,28 @@ namespace KataPotterLib.Model
       //Calc Harry Potter series discount
 
       var uniqueTitles = sCart.Items.Select(x => x.Title).Distinct();
-      foreach (string uTitle in uniqueTitles)
+      HashSet<Guid> handled = new HashSet<Guid>();
+      IList<int> uniqueSets = new List<int>();
+
+      while(sCart.Items.Any(x => !handled.Contains(x.Id)))
       {
-        double price = sCart.Items.First(x => x.Title == uTitle).Price;
-        discount += CalcSetDiscount(sCart.Items.Count(x => x.Title == uTitle), price);
+        HashSet<string> tmpTitles = new HashSet<string>();
+        var uniques = sCart.Items.Where(x => !handled.Contains(x.Id));
+        foreach (var sItem in uniques)
+        {
+          if (!tmpTitles.Contains(sItem.Title))
+            tmpTitles.Add(sItem.Title);
+          handled.Add(sItem.Id);
+        }
+
+        uniqueSets.Add(tmpTitles.Count);
+      }      
+      
+        
+      foreach (int uni in uniqueSets)
+      {
+        double price = sCart.Items.First().Price;
+        discount += CalcSetDiscount(uni, price);
       }
 
       //var allCombos = CalcCombinations(sCart.Items.ToList());
@@ -47,18 +65,18 @@ namespace KataPotterLib.Model
       return discount;
     }
 
-    private static double CalcSetDiscount(int nBooks, double price)
+    private static double CalcSetDiscount(int uniqueTitles, double price)
     {
-      switch (nBooks)
+      switch (uniqueTitles)
       {
         //case 5:
         //  return nBooks * price * 0.75; //25%
         case 4:
-          return nBooks * price * 0.20; //20%
+          return price * 0.20 * uniqueTitles; //20%
         case 3:
-          return nBooks * price * 0.10; //10%
+          return price * 0.10 * uniqueTitles; //10%
         case 2:
-          return nBooks * price * 0.05; //5%
+          return price * 0.05 * uniqueTitles; //5%
         case 1:
           return 0;
         case 0:
@@ -66,7 +84,7 @@ namespace KataPotterLib.Model
 
           // >=5 books
         default:
-          return nBooks * price * 0.75; //25%
+          return price * 0.25 * uniqueTitles; //25%
       }
     }
 
