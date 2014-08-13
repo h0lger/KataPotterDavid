@@ -28,16 +28,17 @@ namespace KataPotterLib.Model
         {
             double discount = 0;
 
-            //Calc Harry Potter series discount
-            List<string> harryPotter = sCart.Items.Where(x =>
-                ((Book)x).Series == Book.SeriesEnum.HarryPotter).Select(x => x.Title).ToList();
+            //Calc Harry Potter series discount           
 
-            var allCombos = CalcCombinations(harryPotter).ToList();
 
-            
-            
+          var allCombos = CalcCombinations(sCart.Items.ToList());
 
-            return discount;
+          allCombos.ForEach(x =>
+            {
+              
+            });
+  
+          return discount;
         }
 
         private double CalcSetDiscount(int nDifferentTitles, int nBooks, double price)
@@ -71,7 +72,7 @@ namespace KataPotterLib.Model
         }
 
 
-        private static IEnumerable<List<string>> ProduceEnumeration(List<string> allValues)
+        private static IEnumerable<List<Media>> ProduceEnumeration(List<Media> allValues)
         {
             for (int i = 0; i < (1 << allValues.Count); i++)
             {
@@ -80,10 +81,11 @@ namespace KataPotterLib.Model
             }
         }
 
-        public static List<List<string>> CalcCombinations(List<string> allValues)
+        public static List<List<Media>> CalcCombinations(List<Media> allValues)
         {
             return ProduceEnumeration(allValues).ToList();
         }
+              
     }
 }
       

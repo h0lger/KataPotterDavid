@@ -6,30 +6,31 @@ using System.Threading.Tasks;
 
 namespace KataPotterLib.Model
 {
-    /// <summary>
-    /// Base class
-    /// </summary>
-    public class Media: IMedia
+  /// <summary>
+  /// Base class
+  /// </summary>
+  public class Media : IMedia
+  {
+    #region Properties
+    public Guid Id { get; protected set; }
+    public double Price { get; set; }
+    public string Title { get; set; }
+    #endregion
+
+    #region Methods
+    public override bool Equals(object obj)
     {
-        #region Properties
-        public double Price { get; set; }
-        public string Title { get; set; }
-        #endregion
+      var item = (Media)obj;
+      if (item == null)
+        return false;
 
-        #region Methods        
-        public override bool Equals(object obj)
-        {
-            var item = (Media)obj;
-            if (item == null)
-                return false;
-
-            return this.Title.Equals(item.Title);
-        }
-        public override int GetHashCode()
-        {
-            return this.Title.GetHashCode();
-        }
-
-        #endregion
+      return this.Title.Equals(item.Title);
     }
+    public override int GetHashCode()
+    {
+      return this.Title.GetHashCode();
+    }
+
+    #endregion
+  }
 }
