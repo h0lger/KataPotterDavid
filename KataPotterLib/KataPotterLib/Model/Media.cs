@@ -30,6 +30,15 @@ namespace KataPotterLib.Model
     {
       return this.Title.GetHashCode();
     }
+    public virtual object Clone()
+    {
+      var clonedObj = new Media();
+      clonedObj.Id = this.Id;
+      clonedObj.Price = this.Price;
+      clonedObj.Title = this.Title;      
+
+      return clonedObj;
+    }
 
     #endregion
   }

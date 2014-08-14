@@ -26,16 +26,15 @@ namespace KataPotterLib.Model
 
     public static double CalcDiscount(ShoppingCart sCart, double totPrice)
     {
-      
-
       //Calc Harry Potter series discount
       Dictionary<IList<int>, double> combinations = new Dictionary<IList<int>, double>();
-      
-      for (int i = 5; i > 0; i--)
+
+      //Search for all combination between 2-5 (the one's you got discount for)
+      for (int i = 5; i >= 2; i--)
       {
         double discount = 0;
         var uniqueTitles = sCart.Items.Select(x => x.Title).Distinct();
-        HashSet<Guid> handled = new HashSet<Guid>();
+        HashSet<Guid> handled = new HashSet<Guid>(); //To know calculated
         IList<int> uniqueSets = new List<int>();
 
         while (sCart.Items.Any(x => !handled.Contains(x.Id)))
@@ -54,24 +53,18 @@ namespace KataPotterLib.Model
           uniqueSets.Add(tmpTitles.Count);
         }
 
-
+        //Calculate discount for each set
         foreach (int uni in uniqueSets)
         {
           double price = sCart.Items.First().Price;
           discount += CalcSetDiscount(uni, price);
         }
 
+        //Save the total discount for this combination
         combinations.Add(uniqueSets, discount);
+      }     
 
-      }
-
-      //var allCombos = CalcCombinations(sCart.Items.ToList());
-
-      //allCombos.ForEach(x =>
-      //  {
-
-      //  });
-
+      //Pick the comination with highest possible discount
       return combinations.Max(x => x.Value);
     }
 
@@ -96,31 +89,6 @@ namespace KataPotterLib.Model
         default:
           return price * 0.25 * uniqueTitles; //25%
       }
-    }
-
-
-    private static IEnumerable<int> ConstructSetFromBits(int i)
-    {
-      for (int n = 0; i != 0; i /= 2, n++)
-      {
-        if ((i & 1) != 0)
-          yield return n;
-      }
-    }
-
-
-    private static IEnumerable<List<Media>> ProduceEnumeration(List<Media> allValues)
-    {
-      for (int i = 0; i < (1 << allValues.Count); i++)
-      {
-        yield return
-            ConstructSetFromBits(i).Select(n => allValues[n]).ToList();
-      }
-    }
-
-    public static List<List<Media>> CalcCombinations(List<Media> allValues)
-    {
-      return ProduceEnumeration(allValues).ToList();
     }
 
   }

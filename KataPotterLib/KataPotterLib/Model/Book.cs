@@ -40,5 +40,17 @@ namespace KataPotterLib.Model
     }
     #endregion
 
+    #region Methods
+
+    public override object Clone()
+    {
+      var clonedObj = new Book(this.Price, this.Title, this.Isbn, this.Author, this.Series);
+
+      return clonedObj;
+    }
+
+    #endregion
+
+
   }
 }

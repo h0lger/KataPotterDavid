@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KataPotterLib.Model
 {
-    interface IMedia
+    interface IMedia: ICloneable
     {     
         double Price {get; set;}
         string Title {get; set; }     
