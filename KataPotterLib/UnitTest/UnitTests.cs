@@ -80,12 +80,47 @@ namespace UnitTest
       SCart.Items.Clear();
 
       //5 different books with 2 copies
-      SCart.AddToShoppingCart(Utils.GetFirstBook(), 2);
-      SCart.AddToShoppingCart(Utils.GetSecondBook(), 2);
-      SCart.AddToShoppingCart(Utils.GetThirdBook(), 2);
-      SCart.AddToShoppingCart(Utils.GetFourthBook(), 2);
-      SCart.AddToShoppingCart(Utils.GetFifthBook(), 2);            
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetThirdBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetThirdBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);      
       Assert.AreEqual<double>(60, Calculator.CalcTotalPrice(SCart));           
+      SCart.Items.Clear();
+
+      //6 different books
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetThirdBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);
+      Assert.AreEqual<double>(38, Calculator.CalcTotalPrice(SCart));
+      SCart.Items.Clear();
+
+      //7 different books
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetThirdBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);
+      Assert.AreEqual<double>(45.2, Calculator.CalcTotalPrice(SCart));
+      SCart.Items.Clear();
+
+      //8 different books
+      SCart.AddToShoppingCart(Utils.GetFirstBook(), 2);     
+      SCart.AddToShoppingCart(Utils.GetSecondBook(), 2);      
+      SCart.AddToShoppingCart(Utils.GetThirdBook(), 2);      
+      SCart.AddToShoppingCart(Utils.GetFourthBook(), 1);
+      SCart.AddToShoppingCart(Utils.GetFifthBook(), 1);
+      Assert.AreEqual<double>(51.2, Calculator.CalcTotalPrice(SCart));
       SCart.Items.Clear();
     }
   }

@@ -26,33 +26,43 @@ namespace KataPotterLib.Model
 
     public static double CalcDiscount(ShoppingCart sCart, double totPrice)
     {
-      double discount = 0;
+      
 
       //Calc Harry Potter series discount
-
-      var uniqueTitles = sCart.Items.Select(x => x.Title).Distinct();
-      HashSet<Guid> handled = new HashSet<Guid>();
-      IList<int> uniqueSets = new List<int>();
-
-      while(sCart.Items.Any(x => !handled.Contains(x.Id)))
+      Dictionary<IList<int>, double> combinations = new Dictionary<IList<int>, double>();
+      
+      for (int i = 5; i > 0; i--)
       {
-        HashSet<string> tmpTitles = new HashSet<string>();
-        var uniques = sCart.Items.Where(x => !handled.Contains(x.Id));
-        foreach (var sItem in uniques)
+        double discount = 0;
+        var uniqueTitles = sCart.Items.Select(x => x.Title).Distinct();
+        HashSet<Guid> handled = new HashSet<Guid>();
+        IList<int> uniqueSets = new List<int>();
+
+        while (sCart.Items.Any(x => !handled.Contains(x.Id)))
         {
-          if (!tmpTitles.Contains(sItem.Title))
-            tmpTitles.Add(sItem.Title);
-          handled.Add(sItem.Id);
+          HashSet<string> tmpTitles = new HashSet<string>();
+          var uniques = sCart.Items.Where(x => !handled.Contains(x.Id));
+          foreach (var sItem in uniques)
+          {
+            if (tmpTitles.Count <= i && !tmpTitles.Contains(sItem.Title))
+            {
+              tmpTitles.Add(sItem.Title);
+              handled.Add(sItem.Id);
+            }
+          }
+
+          uniqueSets.Add(tmpTitles.Count);
         }
 
-        uniqueSets.Add(tmpTitles.Count);
-      }      
-      
-        
-      foreach (int uni in uniqueSets)
-      {
-        double price = sCart.Items.First().Price;
-        discount += CalcSetDiscount(uni, price);
+
+        foreach (int uni in uniqueSets)
+        {
+          double price = sCart.Items.First().Price;
+          discount += CalcSetDiscount(uni, price);
+        }
+
+        combinations.Add(uniqueSets, discount);
+
       }
 
       //var allCombos = CalcCombinations(sCart.Items.ToList());
@@ -62,7 +72,7 @@ namespace KataPotterLib.Model
 
       //  });
 
-      return discount;
+      return combinations.Max(x => x.Value);
     }
 
     private static double CalcSetDiscount(int uniqueTitles, double price)
@@ -82,7 +92,7 @@ namespace KataPotterLib.Model
         case 0:
           return 0;
 
-          // >=5 books
+        // >=5 books
         default:
           return price * 0.25 * uniqueTitles; //25%
       }

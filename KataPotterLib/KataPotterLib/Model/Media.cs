@@ -12,7 +12,7 @@ namespace KataPotterLib.Model
   public class Media : IMedia
   {
     #region Properties
-    public Guid Id { get; protected set; }
+    public Guid Id { get; set; }
     public double Price { get; set; }
     public string Title { get; set; }
     #endregion

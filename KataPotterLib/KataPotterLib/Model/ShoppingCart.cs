@@ -22,7 +22,7 @@ namespace KataPotterLib.Model
                 throw new ArgumentOutOfRangeException("copeis");
 
             for (int i = 0; i < copies; i++)
-            {
+            {              
                 this.Items.Add(item);
             }
         }
